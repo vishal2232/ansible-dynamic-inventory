@@ -1,0 +1,20 @@
+---
+- name: Install nginx
+  hosts: "{{ variable_host }}"
+  become: true
+
+  tasks:
+  - name: Install nginx
+    yum:
+      name: httpd 
+      state: present
+
+  - name: Insert Index Page
+    template:
+      src: index.html
+      dest: /usr/share/httpd/noindex/
+
+  - name: Start NGiNX
+    service:
+      name: httpd
+      state: started
